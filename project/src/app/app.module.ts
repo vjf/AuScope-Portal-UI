@@ -27,9 +27,9 @@ import { RemanentAnomaliesComponent } from './modalwindow/querier/customanalytic
 import { DynamicAnalyticComponent } from './modalwindow/querier/dynamic.analytic.component';
 import { NVCLDatasetListComponent, NVCLDatasetListDialogComponent } from './modalwindow/querier/customanalytic/nvcl/nvcl.datasetlist.component';
 import { TIMAComponent } from './modalwindow/querier/customanalytic/tima/tima.component';
-import { OlMapZoomComponent } from './openlayermap/olmap.zoom.component';
+// import { OlMapZoomComponent } from './openlayermap/olmap.zoom.component';
 import { NgbdModalStatusReportComponent } from './toppanel/renderstatus/renderstatus.component';
-import { OlMapClipboardComponent } from './openlayermap/olmap.clipboard.component';
+// import { OlMapClipboardComponent } from './openlayermap/olmap.clipboard.component';
 
 
 
@@ -51,7 +51,7 @@ import { MatTreeModule } from '@angular/material/tree';
 import { CdkTableModule } from '@angular/cdk/table';
 
 import { StorageServiceModule } from 'ngx-webstorage-service';
-import { OlmapBaselayerselectorComponent } from './openlayermap/olmap.baselayerselector/olmap.baselayerselector.component';
+// import { OlmapBaselayerselectorComponent } from './openlayermap/olmap.baselayerselector/olmap.baselayerselector.component';
 import { DisclaimerModalComponent } from './modalwindow/disclaimer/disclaimer.modal.component';
 import { PortalDetailsPanelComponent } from './menupanel/portal-details-panel/portal-details-panel.component';
 
@@ -68,6 +68,7 @@ import { PlotlyViaCDNModule } from 'angular-plotly.js';
 PlotlyViaCDNModule.plotlyVersion = '1.53.0';
 PlotlyViaCDNModule.plotlyBundle = 'basic';
 
+import { NgxMapboxGLModule } from 'ngx-mapbox-gl';
 
 @NgModule({
   declarations: [
@@ -79,11 +80,11 @@ PlotlyViaCDNModule.plotlyBundle = 'basic';
     FilterPanelComponent,
     DownloadPanelComponent,
     NgbdModalStatusReportComponent,
-    OlMapClipboardComponent,
+    // OlMapClipboardComponent,
     InfoPanelComponent,
     NotificationComponent,
     InfoPanelSubComponent,
-    OlMapZoomComponent,
+    // OlMapZoomComponent,
     QuerierModalComponent,
     DynamicAnalyticComponent,
     NVCLDatasetListComponent,
@@ -98,7 +99,7 @@ PlotlyViaCDNModule.plotlyBundle = 'basic';
     DynamicAdvancefilterComponent,
     CapdfAdvanceFilterComponent,
     CapdfAnalyticComponent,
-    OlmapBaselayerselectorComponent,
+    // OlmapBaselayerselectorComponent,
     DisclaimerModalComponent,
     PortalDetailsPanelComponent,
     MSCLComponent,
@@ -122,7 +123,12 @@ PlotlyViaCDNModule.plotlyBundle = 'basic';
     NgxChartsModule,
     BrowserAnimationsModule,
     BsDropdownModule.forRoot(),
-    CommonModule, PlotlyViaCDNModule
+    CommonModule,
+    PlotlyViaCDNModule,
+    NgxMapboxGLModule.withConfig({
+      accessToken: 'pk.eyJ1IjoidmZhemlvIiwiYSI6ImNrZ2ZzOXQ5YjFvNmMzMHFxdmsyZjY0ajMifQ.vTO0oOGGsWwv7lm2W7LlsA', // Optional, can also be set per map (accessToken input of mgl-map)
+      geocoderAccessToken: 'pk.eyJ1IjoidmZhemlvIiwiYSI6ImNrZ2ZzOXQ5YjFvNmMzMHFxdmsyZjY0ajMifQ.vTO0oOGGsWwv7lm2W7LlsA' // Optional, specify if different from the map access token, can also be set per mgl-geocoder (accessToken input of mgl-geocoder)
+    })
   ],
   entryComponents: [
     NgbdModalStatusReportComponent,
@@ -144,12 +150,12 @@ PlotlyViaCDNModule.plotlyBundle = 'basic';
     LayerPanelComponent,
     CustomPanelComponent,
     NotificationComponent,
-    OlMapZoomComponent,
+    // OlMapZoomComponent,
     PermanentLinkComponent,
     CatalogueSearchComponent,
     ClipboardComponent,
-    OlMapClipboardComponent,
-    OlmapBaselayerselectorComponent,
+    // OlMapClipboardComponent,
+    // OlmapBaselayerselectorComponent,
     PortalDetailsPanelComponent
   ]
 })

@@ -67,19 +67,19 @@ export class OlMapPreviewComponent implements AfterViewInit {
      ngAfterViewInit() {
          // After view init the map target can be set!
          const map = this.olMapObject.getMap();
-         map.setTarget(this.mapElement.nativeElement);
+         // map.setTarget(this.mapElement.nativeElement);
 
          // Remove controls
-         const contrColl = map.getControls();
-         for (let i = 0; i < contrColl.getLength(); i++) {
-             map.removeControl(contrColl.item(i));
-         }
+         // const contrColl = map.getControls();
+         // for (let i = 0; i < contrColl.getLength(); i++) {
+         //     map.removeControl(contrColl.item(i));
+         // }
          // Disable pan and zoom via keyboard & mouse
-         const actionColl = map.getInteractions();
-         for (let i = 0; i < actionColl.getLength(); i++) {
-             const action = actionColl.item(i);
-             action.setActive(false);
-         }
+         // const actionColl = map.getInteractions();
+         // for (let i = 0; i < actionColl.getLength(); i++) {
+         //     const action = actionColl.item(i);
+         //     action.setActive(false);
+         // }
      }
 
     /**
@@ -125,7 +125,7 @@ export class OlMapPreviewComponent implements AfterViewInit {
         } else {
             newView = new olView({center: reCentrePt, zoom: 3});
         }
-        this.olMapObject.getMap().setView(newView);
+        // this.olMapObject.getMap().setView(newView);
     }
 
    /**
@@ -141,12 +141,12 @@ export class OlMapPreviewComponent implements AfterViewInit {
            strokeColour = this.BBOX_HIGH_STROKE_COLOUR;
            fillColour = this.BBOX_HIGH_FILL_COLOUR;
        }
-       const layers = map.getLayers();
+       const layers = map.getStyle().layers;
        // Find the selected layer using the 'layerVectorArry'
-       for (const layer of layers.getArray()) {
+       for (const layer of layers) {
            if (layer === this.layerVectorArr[key]) {
                // Renew the layer but with a new colour
-               map.removeLayer(layer);
+               map.removeLayer(layer.id);
                const rectStyle = new olStyle({
                    stroke: new olStroke({
                        color: strokeColour,
@@ -156,7 +156,7 @@ export class OlMapPreviewComponent implements AfterViewInit {
                        color: fillColour
                    })
                });
-               layer.setStyle(rectStyle);
+               // layer.setStyle(rectStyle);
                map.addLayer(layer)
                break;
            }

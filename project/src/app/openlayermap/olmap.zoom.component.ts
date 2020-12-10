@@ -4,7 +4,7 @@ import { Component } from '@angular/core';
 
 
 
-@Component({
+/* @Component({
   selector: 'app-ol-map-zoom',
   template: `
     <button type="button" class="btn btn-sm btn-inverse active" id="map-theme-text" (click)='zoomClick()'>
@@ -23,7 +23,7 @@ export class OlMapZoomComponent {
   /**
    * toggle on zoom to zoom into bbox
    */
-  public zoomClick() {
+  /* public zoomClick() {
     this.buttonText = 'Click on Map';
     this.olMapService.drawBound().subscribe((vector) => {
       const features = vector.getSource().getFeatures();
@@ -36,4 +36,4 @@ export class OlMapZoomComponent {
 
     });
   }
-}
+} */

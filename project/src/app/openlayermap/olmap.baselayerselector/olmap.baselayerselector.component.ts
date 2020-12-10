@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import {OlMapObject} from 'portal-core-ui/service/openlayermap/ol-map-object';
 import { environment } from '../../../environments/environment';
 
-@Component({
+/*@Component({
   selector: 'app-olmap-baselayerselector',
   templateUrl: './olmap.baselayerselector.component.html',
   styleUrls: ['./olmap.baselayerselector.component.css']
@@ -22,4 +22,4 @@ export class OlmapBaselayerselectorComponent implements OnInit {
     this.olMapObject.switchBaseMap(selected);
   }
 
-}
+}*/

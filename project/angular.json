@@ -30,9 +30,9 @@
               "src/extension/css/extensions.css",
               "node_modules/nouislider/distribute/nouislider.min.css",
               "src/extension/css/d3.css",
-              "node_modules/ol/ol.css",
               "node_modules/@ng-select/ng-select/themes/default.theme.css",
-              "node_modules/ol-geocoder/dist/ol-geocoder.min.css"              
+              "node_modules/mapbox-gl/dist/mapbox-gl.css",
+              "node_modules/@mapbox/mapbox-gl-geocoder/lib/mapbox-gl-geocoder.css"              
             ],
             "scripts": [
               "node_modules/d3/d3.min.js",

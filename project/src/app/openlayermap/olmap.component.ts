@@ -3,8 +3,8 @@ import { ref } from '../../environments/ref';
 import {QuerierModalComponent} from '../modalwindow/querier/querier.modal.component';
 import { CSWRecordModel } from 'portal-core-ui/model/data/cswrecord.model';
 import {AfterViewInit, Component, ElementRef, ViewChild} from '@angular/core';
-import olZoom from 'ol/control/Zoom';
-import olScaleLine from 'ol/control/ScaleLine';
+//import olZoom from 'ol/control/Zoom';
+//import olScaleLine from 'ol/control/ScaleLine';
 import {BsModalService, BsModalRef} from 'ngx-bootstrap/modal';
 import {OlMapObject} from 'portal-core-ui/service/openlayermap/ol-map-object';
 import {OlMapService} from 'portal-core-ui/service/openlayermap/ol-map.service';
@@ -15,22 +15,46 @@ import {QueryWMSService} from 'portal-core-ui/service/wms/query-wms.service';
 import {GMLParserService} from 'portal-core-ui/utility/gmlparser.service';
 import {SimpleXMLService} from 'portal-core-ui/utility/simplexml.service';
 import { UtilitiesService } from 'portal-core-ui/utility/utilities.service';
-import olControlMousePosition from 'ol/control/MousePosition';
-import * as olCoordinate from 'ol/coordinate';
+//import olControlMousePosition from 'ol/control/MousePosition';
+//import * as olCoordinate from 'ol/coordinate';
+import { Map, MapLayerMouseEvent, MapDataEvent } from 'mapbox-gl';
 
-@Component({
+/*@Component({
   selector: 'app-ol-map',
   template: `
     <div #mapElement id="map" class="h-100 w-100"> </div>
     `,
   styleUrls: ['./olmap.component.css']
   // The "#" (template reference variable) matters to access the map element with the ViewChild decorator!
+})*/
+
+@Component({
+  selector: 'app-ol-map',
+  template: ` <mgl-map  #mapElement id="map" 
+               [style]="'mapbox://styles/mapbox/streets-v9'"
+               [zoom]="[3.75]"
+               [center]="[133.45, -26]"
+               (load)="onLoad($event)"
+               (click)="onClick($event)"
+               (data)="onData($event)"> 
+  <mgl-control mglGeocoder [searchInput]=""></mgl-control>
+  <mgl-control mglNavigation position="top-right"></mgl-control>
+      <mgl-control mglScale position="top-right"></mgl-control>
+              </mgl-map> `,
+  styles: [
+    `
+      mgl-map {
+        height: 100%;
+        width: 100%;
+      }
+    `,
+  ],
 })
 
 export class OlMapComponent implements AfterViewInit {
   // This is necessary to access the html element to set the map target (after view init)!
   @ViewChild('mapElement', { static: true }) mapElement: ElementRef;
-
+  private map: Map;
   private bsModalRef: BsModalRef;
 
   constructor(public olMapObject: OlMapObject, private olMapService: OlMapService, private modalService: BsModalService,
@@ -44,22 +68,22 @@ export class OlMapComponent implements AfterViewInit {
 
   // After view init the map target can be set!
   ngAfterViewInit() {
-    const mousePositionControl = new olControlMousePosition({
-      coordinateFormat: olCoordinate.createStringXY(4),
-      projection: 'EPSG:4326',
-      target: document.getElementById('mouse-position'),
-      undefinedHTML: 'Mouse out of range'
-    });
+    // const mousePositionControl = new olControlMousePosition({
+    //   coordinateFormat: olCoordinate.createStringXY(4),
+    //   projection: 'EPSG:4326',
+    //   target: document.getElementById('mouse-position'),
+    //   undefinedHTML: 'Mouse out of range'
+    // });
 
-    this.olMapObject.addControlToMap(mousePositionControl);
-    this.olMapObject.addControlToMap(new olZoom());
-    this.olMapObject.addControlToMap(new olScaleLine('metric'));
-    this.olMapObject.addGeocoderToMap();
+    // this.olMapObject.addControlToMap(mousePositionControl);
+    // this.olMapObject.addControlToMap(new olZoom());
+    // this.olMapObject.addControlToMap(new olScaleLine('metric'));
+    // this.olMapObject.addGeocoderToMap();
 
-    this.olMapObject.getMap().setTarget(this.mapElement.nativeElement.id);
+    // this.olMapObject.getMap().setTarget(this.mapElement.nativeElement.id);
 
     // VT: permanent link(open borehole in external window)
-    const state = UtilitiesService.getUrlParameterByName('state');
+    /*const state = UtilitiesService.getUrlParameterByName('state');
     if (state) {
       const me = this;
       this.manageStateService.getUnCompressedString(state, function(result) {
@@ -91,9 +115,40 @@ export class OlMapComponent implements AfterViewInit {
 
       });
       // VT: End permanent link
-    }
+    }*/
+
+
   }
 
+  public onLoad(mapInstance: Map) {
+    this.map = mapInstance;
+    this.olMapService.setMap(mapInstance);
+    /* THIS WORKS! */
+    /*mapInstance.addSource('wms-test-source', {
+      'type': 'raster',
+      'tiles': [
+      'https://geoanalytics.it.csiro.au/auscope-community/geoserver/mt/wms?bbox={bbox-epsg-3857}&format=image/png&service=WMS&version=1.1.1&request=GetMap&srs=EPSG:3857&transparent=true&width=256&height=256&layers=mt:magnetotelluric'
+      ],
+      'tileSize': 256
+      });
+    mapInstance.addLayer(
+      {
+      'id': 'wms-test-layer',
+      'type': 'raster',
+      'source': 'wms-test-source',
+      'paint': {}
+      }
+      );*/
+  }
+
+  public onClick(evt: MapLayerMouseEvent) {
+    console.log("CLICK EVT=", evt);
+    this.olMapObject.setEvent('Click', evt);
+  }
+
+  public onData(evt: MapDataEvent) {
+    this.olMapObject.setEvent('Data', evt);
+  }
 
   /**
    * Handles the map click event
